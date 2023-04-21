@@ -1,52 +1,49 @@
-import React, {useState} from "react";
-import { TextInput, Text, View, Button } from "react-native";
-import ResultImc  from "../ResultImc";
+import React, { useState } from "react";
+import { TextInput, Text, View, ImageBackground, TouchableOpacity } from "react-native";
+import ResultImc from "../ResultImc";
+import styles from "./style";
 
 export default function Form() {
 
-    const [height, setHeight] = useState(null)
-    const [width, setWidth] = useState(null)
-    const [messageImc, setMessageImc] = useState("Preencha o peso e a altura")
-    const [imc, setImc] = useState(null)
-    const [textButton, setTextButton] = useState("Calcular")
+    const [usuario, setUsuario] = useState(null)
+    const [senha, setSenha] = useState(null)
+    const [textButton, setTextButton] = useState("Entrar")
 
-    function imcCalcular() {
-        return setImc((width/(height*height)).toFixed(2))
-    }
-
-    function validatorImc() {
-        if(width != null && height != null){
-            imcCalcular()
-            setHeight(null)
-            setWidth(null)
-            setMessageImc("Seu imc é igual:")
-            setTextButton("Calcular Novamente")
+    function logar() {
+        if (senha != null && usuario != null) {
+            setUsuario(null)
+            setSenha(null)
             return
         }
-
-        setImc(null)
-        setTextButton("Calcular")
-        setMessageImc("Preencha peso e a altura")
     }
 
     return (
-        <View>
-            <View>
-                <Text>Altura</Text>
-                <TextInput placeholder="Ex. 1.75" keyboardType="numeric"
-                    onChangeText={setHeight} value={height}
-                />
+        <ImageBackground
+            source={require('../../../img/bg.jpg')}
+            style={styles.backgroundImage}>
+            <View style={styles.formContext}>
+
+                <View style={styles.form} >
+                    <Text style={styles.formLabel}>Login</Text>
+                    <TextInput style={styles.input} placeholder="Usuário" keyboardType="numeric"
+                        onChangeText={setUsuario} value={usuario}
+                    />
+
+
+                    {/* <Text style={styles.formLabel}>Peso</Text> */}
+                    <TextInput style={styles.input} placeholder="Senha" keyboardType="numeric"
+                        onChangeText={setSenha} value={senha}
+                    />
+
+                    <TouchableOpacity style={styles.buttonCalculator} onPress={() => { logar() }}>
+                        <Text style={styles.textButtonCalculator}>{textButton}</Text>
+                    </TouchableOpacity>
+
+                    <Text style={styles.info}>Não tem cadastro? Cadastre-se</Text>
+                </View>
+
                 
-
-                <Text>Peso</Text>
-                <TextInput placeholder="Ex. 73" keyboardType="numeric"
-                    onChangeText={setWidth} value={width}
-                />
-
-                <Button title={textButton} onPress={() => validatorImc()}/>
             </View>
-
-            <ResultImc messageResultImc={messageImc} resultImc={imc} />
-        </View>
+        </ImageBackground >
     );
 }
