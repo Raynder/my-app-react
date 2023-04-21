@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { TextInput, Text, View, ImageBackground, TouchableOpacity } from "react-native";
-import ResultImc from "../ResultImc";
 import styles from "./style";
 
 export default function Form() {
